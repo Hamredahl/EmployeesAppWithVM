@@ -34,10 +34,16 @@ namespace EmployeesApp.Web.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult Create(Employee employee)
+        public IActionResult Create(CreateVM viewModel)
         {
             if (!ModelState.IsValid)
                 return View();
+
+            var employee = new Employee
+            {
+                Name = viewModel.Name,
+                Email = viewModel.Email,
+            };
 
             service.Add(employee);
             return RedirectToAction(nameof(Index));
@@ -47,7 +53,13 @@ namespace EmployeesApp.Web.Controllers
         public IActionResult Details(int id)
         {
             var model = service.GetById(id);
-            return View(model);
+            var vm = new DetailsVM
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Email = model.Email,
+            };
+            return View(vm);
         }
     }
 }

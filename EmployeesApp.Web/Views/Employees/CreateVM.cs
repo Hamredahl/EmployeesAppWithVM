@@ -12,7 +12,7 @@ namespace EmployeesApp.Web.Views.Employees
         [Required(ErrorMessage = "You must specify an e-mail address")]
         public required string Email { get; set; }
         [Display(Name = "What is 2 + 2?")]
-        [Range(2, 2, ErrorMessage ="Nah bruh you aint hooman!")]
+        [Range(4, 4, ErrorMessage ="Nah bruh you aint hooman!")]
         public required int BotCheck { get; set; }
     }
 }

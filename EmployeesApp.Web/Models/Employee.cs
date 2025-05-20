@@ -6,7 +6,7 @@ namespace EmployeesApp.Web.Models
     public class Employee
     {
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
-        public string Email { get; set; } = null!;
+        public required string Name { get; set; } = null!;
+        public required string Email { get; set; } = null!;
     }
 }
