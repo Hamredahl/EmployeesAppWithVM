@@ -1,5 +1,6 @@
 ﻿using EmployeesApp.Web.Models;
 using EmployeesApp.Web.Services;
+using EmployeesApp.Web.Views.Employees;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeesApp.Web.Controllers
@@ -12,11 +13,18 @@ namespace EmployeesApp.Web.Controllers
         public IActionResult Index()
         {
             var model = service.GetAll();
-
-            //foreach (var emp in model)
-            //    Console.WriteLine($"{emp.Name}: {emp.Id}");
-
-            return View(model);
+            var viewModel = new IndexVM
+            {
+                Employees = model
+                .Select( e => new IndexVM.EmployeeVM
+                {
+                    Name = e.Name,
+                    Id = e.Id,
+                    ShowAsHighlighted = e.Email.StartsWith("admin", StringComparison.CurrentCultureIgnoreCase)
+                })
+                .ToArray()
+            };
+            return View(viewModel);
         }
 
         [HttpGet("create")]
